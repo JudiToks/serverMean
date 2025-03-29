@@ -95,10 +95,10 @@ const decodeForId = (req, res) => {
     const token = req.header('Authorization')?.replace('Bearer ', '');
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        return decoded.userId;
+        res.status(200).json(decoded.userId)
     } catch (error) {
         console.error('Invalid token:', error.message);
-        return null;
+        res.status(500).json({ message: 'Erreur serveur dans testLogin', error: error.message });
     }
 }
 
@@ -106,10 +106,10 @@ const decodeForRole = (req, res) => {
     const token = req.header('Authorization')?.replace('Bearer ', '');
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        return decoded.role;
+        res.status(200).json(decoded.role)
     } catch (error) {
         console.error('Invalid token:', error.message);
-        return null;
+        res.status(500).json({ message: 'Erreur serveur dans testLogin', error: error.message });
     }
 }
 
@@ -120,3 +120,5 @@ module.exports = {
     decodeForId,
     decodeForRole
 }
+
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U3ZDExN2Y4ODcxNjVkNzg2ZTk1YzkiLCJlbWFpbCI6ImRldkBnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE3NDMyNzU5MDgsImV4cCI6MTc0MzI5MDMwOH0.HohVW1nMOhbRdIzY3kxBzK2W9AtmEtvqCtqDq9WFrzU
