@@ -1,4 +1,4 @@
-const RDV = require("src/models/rdv")
+const RDV = require("../models/rdv")
 
 const getAllRDV = async (req, res) => {
     try

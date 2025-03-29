@@ -1,4 +1,4 @@
-const Reparation = require('/src/models/reparation')
+const Reparation = require('../models/reparation')
 
 const getAllReparation = async (req, res) => {
     try

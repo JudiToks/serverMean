@@ -14,7 +14,7 @@ const UsersSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    numero : {
+    telephone : {
         type : String,
         required : true
     },

@@ -1,4 +1,4 @@
-import Produits from "../models/produits";
+const Produits = require('../models/produits')
 
 const getAllProduits = async (req, res) => {
     try
