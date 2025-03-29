@@ -54,6 +54,7 @@ const testLogin = async (req, res) => {
     try {
         const { email, password } = req.body;
 
+        console.log(email," | ",password)
         // verification si cela existe
         const user = await Users.findOne({ email });
         console.log("USER LOGIN : ", user)
@@ -69,7 +70,7 @@ const testLogin = async (req, res) => {
 
         // creation et signature du token anlah
         const token = jwt.sign(
-            { userId: user._id, email: user.email },
+            { userId: user._id, email: user.email, role: user.role },
             process.env.JWT_SECRET,
             { expiresIn: '4h' }
         );
@@ -81,7 +82,8 @@ const testLogin = async (req, res) => {
                 id: user._id,
                 email: user.email,
                 name: user.name,
-                telephone: user.telephone
+                telephone: user.telephone,
+                role: user.role
             }
         });
     } catch (error) {
@@ -89,8 +91,32 @@ const testLogin = async (req, res) => {
     }
 }
 
+const decodeForId = (req, res) => {
+    const token = req.header('Authorization')?.replace('Bearer ', '');
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        return decoded.userId;
+    } catch (error) {
+        console.error('Invalid token:', error.message);
+        return null;
+    }
+}
+
+const decodeForRole = (req, res) => {
+    const token = req.header('Authorization')?.replace('Bearer ', '');
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        return decoded.role;
+    } catch (error) {
+        console.error('Invalid token:', error.message);
+        return null;
+    }
+}
+
 module.exports = {
     register,
     testLogin,
-    authMiddleware
+    authMiddleware,
+    decodeForId,
+    decodeForRole
 }
