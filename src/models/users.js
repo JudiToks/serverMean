@@ -3,7 +3,8 @@ const mongoose = require('mongoose')
 const UsersSchema = new mongoose.Schema({
     email : {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     name: {
         type: String,
@@ -13,9 +14,14 @@ const UsersSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    numero : {
+        type : String,
+        required : true
+    },
     role : {
         type : Number,
-        required : true
+        required : true,
+        default: 1
     }
 }, {
     collection: "users"
