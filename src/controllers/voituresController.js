@@ -16,8 +16,8 @@ const getAllVoitures = async (req, res) => {
 const getByClient = async (req, res) => {
     try
     {
-        const {id} = req.params
-        const voiture = await Voitures.findOne(id);
+        const {idclient} = req.params
+        const voiture = await Voitures.find({ client : { $regex : idclient, $options : 'i' } });
         res.status(200).json(voiture)
     }
     catch (error)

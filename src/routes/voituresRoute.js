@@ -3,7 +3,7 @@ const {getAllVoitures, createObject, getByClient} = require("../controllers/voit
 const router = express.Router()
 
 router.get('/', getAllVoitures)
-router.get('/:id', getByClient)
+router.get('/:idclient', getByClient)
 router.post('/', createObject)
 
 module.exports = router;

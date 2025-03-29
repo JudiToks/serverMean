@@ -7,8 +7,10 @@ const rdvSchema = new mongoose.Schema({
     lieu : String,
     remarque : String,
     client : String,
-    voiture : String,
-    services : [String]
+    etat : String,
+    personnel : String
+    // voiture : String,
+    // services : [String]
 }, {
     collection : "rdv"
 })

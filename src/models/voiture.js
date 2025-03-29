@@ -5,7 +5,8 @@ const voitureSchema = new mongoose.Schema({
     marque : String,
     modele : String,
     immatriculation : String,
-    annee : Number
+    annee : Number,
+    client : String
 }, {
     collection : "voitures"
 })
