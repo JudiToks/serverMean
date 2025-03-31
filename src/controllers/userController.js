@@ -13,6 +13,20 @@ const getAllUsers = async (req, res) => {
     }
 }
 
+const getUserById = async (req, res) => {
+    try
+    {
+        const {id} = req.params
+        const user = await Users.findById(id);
+        res.status(200).json(user)
+    }
+    catch (error)
+    {
+        console.log('erreur dans users : ', error.message)
+        res.status(500).json({message : error.message})
+    }
+}
+
 const getUserByName = async (req, res) => {
     try
     {
@@ -73,5 +87,6 @@ module.exports = {
     getUserByName,
     createObject,
     getAllPersonnel,
-    updateObject
+    updateObject,
+    getUserById
 }

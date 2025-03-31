@@ -26,7 +26,7 @@ app.get('/mean', function (req, res) {
 app.use("/mean", authenticateRoute)
 app.use("/mean/users", usersRoute)
 app.use("/mean/voitures", voituresRoute)
-app.use("/mean/rdv", authMiddleware, rdvRoute)
+app.use("/mean/rdv", rdvRoute)
 app.use("/mean/reparation", reparationRoute)
 app.use("/mean/produits", produitRoute)
 app.use("/mean/panier", panierRoute)
