@@ -17,7 +17,7 @@ const getPanierByClient = async (req, res) => {
     try
     {
         const {clientId} = req.params
-        const paniers = await Panier.find({ clientId : { $regex : clientId, $options : 'i' } }).populate('clientId');
+        const paniers = await Panier.find({ clientId : clientId }).populate('clientId');
         res.status(200).json(paniers)
     }
     catch (error)

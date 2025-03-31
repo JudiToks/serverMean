@@ -27,6 +27,20 @@ const getReparationByVoiture = async (req, res) => {
     }
 }
 
+const getReparationByRdv = async (req, res) => {
+    try
+    {
+        const {rdvId} = req.params
+        const reparations = Reparation.find({ rdvId : rdvId }).populate('rdvId')
+        res.status(200).json(reparations)
+    }
+    catch (error)
+    {
+        console.log('erreur dans get reparation by voiture : ', error.message)
+        res.status(500).json({message : error.message})
+    }
+}
+
 const createObject = async (req, res) => {
     try
     {
@@ -43,5 +57,6 @@ const createObject = async (req, res) => {
 module.exports ={
     getAllReparation,
     getReparationByVoiture,
-    createObject
+    createObject,
+    getReparationByRdv
 }

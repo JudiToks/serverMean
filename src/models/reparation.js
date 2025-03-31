@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const {Schema} = require("mongoose");
 
 const reparationSchema = new mongoose.Schema({
     description : {
@@ -11,14 +12,16 @@ const reparationSchema = new mongoose.Schema({
     },
     daty : {
         type : Date,
-        required : true
+        required : true,
+        default : Date.now()
     },
     produit : {
         type : String,
         required : true
     },
-    etat : {
-        type : String,
+    rdvId : {
+        type : Schema.Types.ObjectId,
+        ref : 'rdv',
         required : true
     }
 }, {
