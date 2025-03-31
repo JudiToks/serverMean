@@ -3,7 +3,7 @@ const {getAllReparation, getReparationByVoiture, createObject} = require("../con
 const router = express.Router()
 
 router.get('/', getAllReparation)
-router.get('/:idvoiture', getReparationByVoiture)
+router.get('/byVoiture/:idvoiture', getReparationByVoiture)
 router.post('/', createObject)
 
 module.exports = router

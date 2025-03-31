@@ -3,9 +3,9 @@ const {getAllRDV, getByClient, createObject, updateObject, getRdvByPersonnel} = 
 const router = express.Router()
 
 router.get('/', getAllRDV)
-router.get('/:idclient', getByClient)
-router.get('/:idpersonnel', getRdvByPersonnel)
+router.get('/byClient/:idclient', getByClient)
+router.get('/byPersonnel/:idpersonnel', getRdvByPersonnel)
 router.post('/', createObject)
-router.put('/:id', updateObject)
+router.put('/update/:id', updateObject)
 
 module.exports = router
