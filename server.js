@@ -9,6 +9,7 @@ const reparationRoute = require("./src/routes/reparationRoute")
 const produitRoute = require("./src/routes/produitsRoute")
 const panierRoute = require("./src/routes/panierRoute")
 const detailsPanierRoute = require("./src/routes/detailsPanierRoute")
+const stockRouter = require('./src/routes/stockRoute')
 const {authMiddleware} = require("./src/services/authenticateService");
 require('dotenv').config()
 
@@ -31,6 +32,7 @@ app.use("/mean/reparation", reparationRoute)
 app.use("/mean/produits", produitRoute)
 app.use("/mean/panier", panierRoute)
 app.use("/mean/detailsPanier", detailsPanierRoute)
+app.use("/mean/stock", stockRouter)
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
