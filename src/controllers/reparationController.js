@@ -17,7 +17,7 @@ const getReparationByVoiture = async (req, res) => {
     try
     {
         const {idvoiture} = req.params
-        const reparations = Reparation.findOne(idvoiture)
+        const reparations = await Reparation.findOne(idvoiture)
         res.status(200).json(reparations)
     }
     catch (error)
@@ -31,12 +31,12 @@ const getReparationByRdv = async (req, res) => {
     try
     {
         const {rdvId} = req.params
-        const reparations = Reparation.find({ rdvId : rdvId }).populate('rdvId')
+        const reparations = await Reparation.find({ rdvId : rdvId }).populate('rdvId')
         res.status(200).json(reparations)
     }
     catch (error)
     {
-        console.log('erreur dans get reparation by voiture : ', error.message)
+        console.log('erreur dans get reparation by rdv : ', error.message)
         res.status(500).json({message : error.message})
     }
 }
