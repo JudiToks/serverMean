@@ -121,5 +121,3 @@ module.exports = {
     decodeForId,
     decodeForRole
 }
-
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2U3ZDExN2Y4ODcxNjVkNzg2ZTk1YzkiLCJlbWFpbCI6ImRldkBnbWFpbC5jb20iLCJyb2xlIjoxLCJpYXQiOjE3NDMyNzU5MDgsImV4cCI6MTc0MzI5MDMwOH0.HohVW1nMOhbRdIzY3kxBzK2W9AtmEtvqCtqDq9WFrzU

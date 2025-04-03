@@ -1,4 +1,5 @@
 const Users = require("../models/users");
+const RDV = require("../models/rdv");
 
 const getAllUsers = async (req, res) => {
     try
@@ -82,11 +83,25 @@ const updateObject = async (req, res) => {
     }
 }
 
+const countAllClient = async (req, res) => {
+    try
+    {
+        const count = await Users.countDocuments({role : { $gt: 0, $lt: 25 } });
+        res.status(200).json({count})
+    }
+    catch (error)
+    {
+        console.log("Erreur dans countAllClient : ", error.message)
+        res.status(500).json({message : error.message})
+    }
+}
+
 module.exports = {
     getAllUsers,
     getUserByName,
     createObject,
     getAllPersonnel,
     updateObject,
-    getUserById
+    getUserById,
+    countAllClient
 }

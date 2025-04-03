@@ -82,11 +82,81 @@ const updateObject = async (req, res) => {
     }
 }
 
+const countAllRdv = async (req, res) => {
+    try
+    {
+        const count = await RDV.countDocuments();
+        res.status(200).json({count})
+    }
+    catch (error)
+    {
+        console.log("Erreur dans countAllRdv : ", error.message)
+        res.status(500).json({message : error.message})
+    }
+}
+
+const countRdvPending = async (req, res) => {
+    try
+    {
+        const count = await RDV.countDocuments({etat : 'En attente'});
+        res.status(200).json({count})
+    }
+    catch (error)
+    {
+        console.log("Erreur dans countRdvPending : ", error.message)
+        res.status(500).json({message : error.message})
+    }
+}
+
+const countRdvLoading = async (req, res) => {
+    try
+    {
+        const count = await RDV.countDocuments({etat : 'En cours'});
+        res.status(200).json({count})
+    }
+    catch (error)
+    {
+        console.log("Erreur dans countRdvLoading : ", error.message)
+        res.status(500).json({message : error.message})
+    }
+}
+
+const countRdvAnnule = async (req, res) => {
+    try
+    {
+        const count = await RDV.countDocuments({etat : 'Annulé'});
+        res.status(200).json({count})
+    }
+    catch (error)
+    {
+        console.log("Erreur dans countRdvAnnule : ", error.message)
+        res.status(500).json({message : error.message})
+    }
+}
+
+const countRdvDone = async (req, res) => {
+    try
+    {
+        const count = await RDV.countDocuments({etat : 'Terminé'});
+        res.status(200).json({count})
+    }
+    catch (error)
+    {
+        console.log("Erreur dans countRdvDone : ", error.message)
+        res.status(500).json({message : error.message})
+    }
+}
+
 module.exports = {
     getAllRDV,
     getByClient,
     createObject,
     updateObject,
     getRdvByPersonnel,
-    getRdvByEtat
+    getRdvByEtat,
+    countAllRdv,
+    countRdvPending,
+    countRdvLoading,
+    countRdvAnnule,
+    countRdvDone
 }
