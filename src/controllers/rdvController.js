@@ -147,6 +147,77 @@ const countRdvDone = async (req, res) => {
     }
 }
 
+const getStatistiqueRdvParMois = async (req, res) => {
+    try {
+        const statistiques = await RDV.aggregate([
+            // Étape 1: Extraire le mois et l'année de la date
+            {
+                $project: {
+                    mois: { $month: "$date" },
+                    annee: { $year: "$date" },
+                    etat: 1
+                }
+            },
+            // Étape 2: Grouper par mois et année
+            {
+                $group: {
+                    _id: { mois: "$mois", annee: "$annee" },
+                    total: { $sum: 1 },
+                    termines: {
+                        $sum: {
+                            $cond: [{ $eq: ["$etat", "Terminé"] }, 1, 0]
+                        }
+                    },
+                    annules: {
+                        $sum: {
+                            $cond: [{ $eq: ["$etat", "Annulé"] }, 1, 0]
+                        }
+                    },
+                    enAttente: {
+                        $sum: {
+                            $cond: [{ $ne: ["$etat", "Terminé"] }, { $cond: [{ $ne: ["$etat", "Annulé"] }, 1, 0] }, 0]
+                        }
+                    }
+                }
+            },
+            // Étape 3: Reformater le résultat
+            {
+                $project: {
+                    _id: 0,
+                    mois: "$_id.mois",
+                    annee: "$_id.annee",
+                    total: 1,
+                    termines: 1,
+                    annules: 1,
+                    enAttente: 1
+                }
+            },
+            // Étape 4: Trier par année et mois
+            {
+                $sort: { annee: 1, mois: 1 }
+            }
+        ]);
+
+        // Convertir les numéros de mois en noms de mois
+        const moisNames = [
+            "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
+            "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"
+        ];
+
+        const result = statistiques.map(stat => {
+            return {
+                ...stat,
+                moisNom: moisNames[stat.mois - 1]
+            };
+        });
+
+        return res.status(200).json(result);
+    } catch (error) {
+        console.log('Erreur dans getStatistiqueRdvParMois:', error.message);
+        return res.status(500).json({ message: error.message });
+    }
+};
+
 module.exports = {
     getAllRDV,
     getByClient,
@@ -158,5 +229,6 @@ module.exports = {
     countRdvPending,
     countRdvLoading,
     countRdvAnnule,
-    countRdvDone
+    countRdvDone,
+    getStatistiqueRdvParMois
 }
