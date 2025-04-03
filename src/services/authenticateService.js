@@ -22,7 +22,7 @@ const authMiddleware = (req, res, next) => {
 
 const register = async (req, res) => {
     try {
-        const { email, password, name, telephone } = req.body;
+        const { email, password, name, telephone, role } = req.body;
 
         // verification sode efa misy
         const existingUser = await Users.findOne({ email });
@@ -39,7 +39,8 @@ const register = async (req, res) => {
             email,
             password: hashedPassword,
             name,
-            telephone
+            telephone,
+            role
         });
 
         await user.save();
