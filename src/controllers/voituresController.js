@@ -8,7 +8,7 @@ const getAllVoitures = async (req, res) => {
     }
     catch (error)
     {
-        console.log('erreur dans voitures : ', error.message)
+        console.log('erreur dans voitures getAllVoitures : ', error.message)
         res.status(500).json({message : error.message})
     }
 }
@@ -17,12 +17,26 @@ const getByClient = async (req, res) => {
     try
     {
         const {idclient} = req.params
-        const voiture = await Voitures.find({ client : { $regex : idclient, $options : 'i' } });
+        const voiture = await Voitures.find({ client : idclient }).populate("client");
         res.status(200).json(voiture)
     }
     catch (error)
     {
-        console.log('erreur dans voitures : ', error.message)
+        console.log('erreur dans voitures getByClient : ', error.message)
+        res.status(500).json({message : error.message})
+    }
+}
+
+const getById = async (req, res) => {
+    try
+    {
+        const {id} = req.params
+        const voiture = await Voitures.findOne(id);
+        res.status(200).json(voiture)
+    }
+    catch (error)
+    {
+        console.log('erreur dans voitures getById : ', error.message)
         res.status(500).json({message : error.message})
     }
 }
@@ -43,5 +57,6 @@ const createObject = async (req, res) => {
 module.exports = {
     getAllVoitures,
     getByClient,
-    createObject
+    createObject,
+    getById
 }

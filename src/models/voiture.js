@@ -1,12 +1,16 @@
 const mongoose = require('mongoose')
-const {models} = require("mongoose");
+const {models, Schema} = require("mongoose");
 
 const voitureSchema = new mongoose.Schema({
     marque : String,
     modele : String,
     immatriculation : String,
     annee : Number,
-    client : String
+    client : {
+        type : Schema.Types.ObjectId,
+        ref : 'users',
+        required : true
+    }
 }, {
     collection : "voitures"
 })

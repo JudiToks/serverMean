@@ -66,10 +66,25 @@ const getProduitsService = async (req, res) => {
     }
 }
 
+const getById = async (req, res) => {
+    try
+    {
+        const {id} = req.params
+        const produit = await Produits.findOne(id);
+        res.status(200).json(produit)
+    }
+    catch (error)
+    {
+        console.log("Erreur dans getProduitsById : ", error.message)
+        res.status(500).json({message : error.message})
+    }
+}
+
 module.exports = {
     getAllProduits,
     createObject,
     updateObject,
     getProduitsArticle,
-    getProduitsService
+    getProduitsService,
+    getById
 }
