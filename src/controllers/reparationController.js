@@ -17,7 +17,7 @@ const getReparationByVoiture = async (req, res) => {
     try
     {
         const {idvoiture} = req.params
-        const reparations = await Reparation.findOne(idvoiture)
+        const reparations = await Reparation.find({voiture: idvoiture})
         res.status(200).json(reparations)
     }
     catch (error)
